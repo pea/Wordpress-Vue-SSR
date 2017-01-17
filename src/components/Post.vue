@@ -10,10 +10,10 @@ import { mapGetters } from 'vuex'
 
 const fetchInitialData = (store, params) => {
   return new Promise((resolve, reject) => {
-    return store.dispatch(`getPost`, params.slug)
+    return store.dispatch('getPost', params.slug)
       .then(
-        (response) => { return resolve(response) },
-        (response) => { return reject(response) }
+        response => { console.log(response); return resolve(response) },
+        response => { console.log(response); return reject(response) }
       )
   })
 }

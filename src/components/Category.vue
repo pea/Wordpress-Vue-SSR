@@ -3,7 +3,7 @@
     <h1>{{ category.name }}</h1>
     <ul>
       <li v-for="post in category.posts">
-        <router-link :to="{ path: `post/${post.slug}` }">
+        <router-link :to="{ path: `/post/${post.slug}` }">
           {{ post.title }}
         </router-link>
       </li>

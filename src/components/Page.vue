@@ -12,8 +12,8 @@ const fetchInitialData = (store, params) => {
   return new Promise((resolve, reject) => {
     return store.dispatch(`getPage`, params.slug)
       .then(
-        (response) => { console.log('success'); return resolve(response) },
-        (response) => { console.log('fail'); return reject(response) }
+        (response) => { return resolve(response) },
+        (response) => { return reject(response) }
       )
   })
 }

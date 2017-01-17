@@ -1,15 +1,9 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import store from 'src/vuex/store'
-import Page from 'src/components/Page'
+import router from 'src/router/index'
 
 describe('Page.vue', () => {
   it('should render page correctly', done => {
-    Vue.use(VueRouter)
-    // Create new router
-    const router = new VueRouter({routes: [
-        { path: '/page/:slug', component: Page }
-    ]})
     // Create new Vue instance
     const vm = new Vue({
       el: document.createElement('div'),

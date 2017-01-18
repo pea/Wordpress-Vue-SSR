@@ -1,7 +1,4 @@
-import request from 'axios'
 import api from '../api/index'
-
-request.defaults.baseURL = 'http://wpvue.peabay.xyz/wp-json/wp/v2/'
 
 export const getPage = ({ commit, state }, slug) => {
   return new Promise((resolve, reject) => {

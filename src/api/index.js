@@ -91,7 +91,7 @@ export default {
     })
   },
   /**
-   * Return all posts in a category (paginated)
+   * Returns category data and all posts under it (paginated)
    * @param  string slug Category slug (e.g. 'news')
    * @return Promise Filtered response
    */

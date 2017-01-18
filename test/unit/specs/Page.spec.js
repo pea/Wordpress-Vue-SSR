@@ -7,6 +7,7 @@ import mutations from 'src/vuex/mutations'
 
 Vue.use(Vuex)
 
+// Mock getPage action
 let mockStore = new Vuex.Store({
   state: defaultState,
   mutations,
@@ -34,8 +35,8 @@ describe('Page.vue', () => {
       store: mockStore,
       render: h => h('router-view')
     })
-    // Change current route
-    router.push('/page/sample-page')
+    // Load component in router view
+    router.push('/page/mock')
     // Run fetchInitialData() inside the component to query API and hydrate store
     Promise.all(router.getMatchedComponents().map(component => {
       if (component.prefetch) {

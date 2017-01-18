@@ -34,6 +34,39 @@ export default new Vuex.Store({
         commit('POST', response)
         resolve(response)
       })
+    },
+    getPosts ({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        const response = {
+          total: 1,
+          totalPages: 1,
+          data: [{
+            id: 1,
+            title: 'Sample Title',
+            content: '<b>Sample content</b>',
+            slug: 'sample-title'
+          }]
+        }
+        commit('POSTS', response)
+        resolve(response)
+      })
+    },
+    getCategory ({ commit, state }, slug) {
+      return new Promise((resolve, reject) => {
+        const response = {
+          id: 1,
+          name: 'Sample Category Name',
+          slug: 'sample-category-name',
+          posts: [{
+            id: 1,
+            title: 'Sample Title',
+            content: '<b>Sample content</b>',
+            slug: 'sample-post'
+          }]
+        }
+        commit('CATEGORY', response)
+        resolve(response)
+      })
     }
   }
 })

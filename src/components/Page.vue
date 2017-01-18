@@ -12,8 +12,8 @@ const fetchInitialData = (store, params) => {
   return new Promise((resolve, reject) => {
     return store.dispatch(`getPage`, params.slug)
       .then(
-        (response) => { return resolve(response) },
-        (response) => { return reject(response) }
+        response => { return resolve(response) },
+        response => { return reject(response) }
       )
   })
 }
@@ -26,7 +26,7 @@ export default {
   },
   mounted () {
     return fetchInitialData(this.$store, this.$route.params)
-      .then(response => { })
+      .then(response => {})
       .catch(err => {
         if (err) this.$router.push('/404')
       })

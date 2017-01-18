@@ -2,8 +2,8 @@ import Vue from 'vue'
 import router from 'src/router/index'
 import mockStore from '../mocks/store'
 
-describe('Page.vue', () => {
-  it('should render page correctly', done => {
+describe('Post.vue', () => {
+  it('should render post correctly', done => {
     // Create new Vue instance
     const vm = new Vue({
       el: document.createElement('div'),
@@ -12,7 +12,7 @@ describe('Page.vue', () => {
       render: h => h('router-view')
     })
     // Load component in router view
-    router.push('/page/mock')
+    router.push('/post/mock')
     // Run fetchInitialData() inside the component to query API and hydrate store
     Promise.all(router.getMatchedComponents().map(component => {
       if (component.prefetch) {

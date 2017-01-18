@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="dataReady">
       <h1>{{ post.title }}</h1>
       <div v-html="post.content">{{ post.content }}</div>
   </div>
@@ -19,6 +19,11 @@ const fetchInitialData = (store, params) => {
 }
 export default {
   prefetch: fetchInitialData,
+  data () {
+    return {
+      dataReady: false
+    }
+  },
   computed: {
     ...mapGetters({
       post: 'getPost'
@@ -26,18 +31,22 @@ export default {
   },
   mounted () {
     return fetchInitialData(this.$store, this.$route.params)
-      .then(response => {})
+      .then(response => {
+        this.dataReady = true
+      })
       .catch(err => {
-        if (err) this.$router.push('/404')
+        if (err) this.$router.push({name: 'pagenotfound'})
       })
   },
   watch: {
-    '$route' (to, from) {
+    $route (to, from) {
       return fetchInitialData(this.$store, this.$route.params)
-        .then(response => {})
-        .catch(err => {
-          if (err) this.$router.push('/404')
-        })
+      .then(response => {
+        this.dataReady = true
+      })
+      .catch(err => {
+        if (err) this.$router.push({name: 'pagenotfound'})
+      })
     }
   }
 }

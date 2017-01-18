@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="dataReady">
     <h1>Archive</h1>
     Total: {{ posts.total }}<br>
     Total Pages: {{ posts.totalPages }}
@@ -20,6 +20,11 @@ const fetchInitialData = store => {
 }
 export default {
   prefetch: fetchInitialData,
+  data () {
+    return {
+      dataReady: false
+    }
+  },
   computed: {
     ...mapGetters({
       posts: 'getPosts'
@@ -27,6 +32,23 @@ export default {
   },
   mounted () {
     fetchInitialData(this.$store)
+    .then(() => {
+      this.dataReady = true
+    })
+    .catch(err => {
+      if (err) this.$router.push({name: 'pagenotfound'})
+    })
+  },
+  watch: {
+    $route (to, from) {
+      return fetchInitialData(this.$store)
+      .then(response => {
+        this.dataReady = true
+      })
+      .catch(err => {
+        if (err) this.$router.push({name: 'pagenotfound'})
+      })
+    }
   }
 }
 </script>

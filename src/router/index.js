@@ -13,17 +13,17 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: Index },
-    { path: '/page/:slug', component: Page },
-    { path: '/post/:slug', component: Post },
-    { path: '/category/:slug', component: Category },
+    { path: '/', name: 'index', component: Index },
+    { path: '/page/:slug', name: 'page', component: Page },
+    { path: '/post/:slug', name: 'post', component: Post },
+    { path: '/category/:slug', name: 'category', component: Category },
     // { path: 'tag', component: Tag },
     // { path: 'taxonomy', component: Taxonomy },
     // { path: 'author', component: Author },
-    { path: '/archive', component: Archive },
+    { path: '/archive', name: 'achive', component: Archive },
     // { path: 'search', component: Search },
     // { path: 'attachment', component: Attachment }
-    { path: '/404', component: PageNotFound }
+    { path: '/404', name: 'pagenotfound', component: PageNotFound }
 
   ]
 })

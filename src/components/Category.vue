@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="dataReady">
     <h1>{{ category.name }}</h1>
     <ul>
       <li v-for="post in category.posts">
@@ -18,6 +18,11 @@ const fetchInitialData = (store, params) => {
 }
 export default {
   prefetch: fetchInitialData,
+  data () {
+    return {
+      dataReady: false
+    }
+  },
   computed: {
     ...mapGetters({
       category: 'getCategory'
@@ -25,6 +30,23 @@ export default {
   },
   mounted () {
     fetchInitialData(this.$store, this.$route.params)
+    .then(() => {
+      this.dataReady = true
+    })
+    .catch(err => {
+      if (err) this.$router.push({name: 'pagenotfound'})
+    })
+  },
+  watch: {
+    $route (to, from) {
+      return fetchInitialData(this.$store, this.$route.params)
+      .then(response => {
+        this.dataReady = true
+      })
+      .catch(err => {
+        if (err) this.$router.push({name: 'pagenotfound'})
+      })
+    }
   }
 }
 </script>

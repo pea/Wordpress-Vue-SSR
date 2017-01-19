@@ -22,7 +22,7 @@ export default {
   prefetch: fetchInitialData,
   data () {
     return {
-      dataReady: false
+      dataReady: typeof window === 'undefined'
     }
   },
   computed: {
@@ -30,7 +30,7 @@ export default {
       posts: 'getPosts'
     })
   },
-  mounted () {
+  created () {
     fetchInitialData(this.$store)
     .then(() => {
       this.dataReady = true
@@ -38,17 +38,6 @@ export default {
     .catch(err => {
       if (err) this.$router.push({name: 'pagenotfound'})
     })
-  },
-  watch: {
-    $route (to, from) {
-      return fetchInitialData(this.$store)
-      .then(response => {
-        this.dataReady = true
-      })
-      .catch(err => {
-        if (err) this.$router.push({name: 'pagenotfound'})
-      })
-    }
   }
 }
 </script>

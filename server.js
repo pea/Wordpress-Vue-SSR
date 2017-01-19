@@ -1,3 +1,5 @@
+'use strict'
+
 process.env.VUE_ENV = 'server'
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -48,9 +50,9 @@ app.use('/dist', express.static(resolve('./dist')))
 app.use(favicon(path.resolve(__dirname, 'src/assets/logo.png')))
 
 // Routes
-/*app.get('/endpoint', (req, res) => {
-  res.send('Endpoint Output')
-})*/
+// app.get('/endpoint', (req, res) => {
+//   res.send('Endpoint Output')
+// })
 
 app.get('*', (req, res) => {
   if (!renderer) {

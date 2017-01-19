@@ -20,7 +20,7 @@ export default {
   prefetch: fetchInitialData,
   data () {
     return {
-      dataReady: false
+      dataReady: typeof window === 'undefined'
     }
   },
   computed: {
@@ -28,17 +28,19 @@ export default {
       category: 'getCategory'
     })
   },
-  mounted () {
+  created () {
     fetchInitialData(this.$store, this.$route.params)
     .then(() => {
       this.dataReady = true
     })
     .catch(err => {
+      console.log(err)
       if (err) this.$router.push({name: 'pagenotfound'})
     })
   },
-  watch: {
-    $route (to, from) {
+  activated () {
+    if (this.$route.params.slug !== this.$store.state.post.slug) {
+      this.dataReady = typeof window === 'undefined'
       return fetchInitialData(this.$store, this.$route.params)
       .then(response => {
         this.dataReady = true

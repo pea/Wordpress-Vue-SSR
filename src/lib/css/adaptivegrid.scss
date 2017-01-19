@@ -1,0 +1,320 @@
+/**
+* AdaptiveGrid
+* AdaptiveGrid is a fluid CSS grid framework which adapts to the screen size.
+* https://github.com/pea/AdaptiveGrid
+*/
+
+/* Column Defaults */
+
+.col {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* List of custom column sizes in percentages */
+
+$column-sizes: 10 16.66666666666667 20 25 30 33.3333333333 40 45 50 55 60 66.6666666666 70 80 100;
+
+/* List of custom gutter sizes in pixels */
+
+$gutter-sizes: 5 10 15 20 30 40 50 60 70 100;
+
+/* Delimiter for class names (- or _) */
+
+$delimiter: "-";
+
+/* Screen sizes */
+
+$mobile-small-portrait-width: 480px;
+$mobile-small-landscape-width: 600px;
+$mobile-large-width: 767px;
+$tablet-portrait-width: 1023px;
+$tablet-landscape-width: 1199px;
+$desktop-width: 1200px;
+
+.grid {
+    
+    /* The Grid */
+    
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    /* Column Sizes */
+    
+    .col {
+        @each $size in $column-sizes {
+            &.perc#{floor($size)} {
+                width: #{$size}#{"%"};
+            } 
+        }
+    }
+    
+    /* Gutter */
+    
+    @each $size in $gutter-sizes {
+        &.gut#{floor($size)} {
+            margin: #{"-"}#{$size/2}#{"px"};
+        }
+    }
+    
+    @each $size in $gutter-sizes {
+        &.gut#{floor($size)} > .col {
+            padding: #{$size/2}#{"px"};
+        }
+    }
+    
+    /* Outer Gutter */
+    
+    @each $size in $gutter-sizes {
+        &.gut#{floor($size)}.outergut {
+            margin: 0; padding: #{$size/2}#{"px"};
+        }
+    }
+
+}
+
+/**
+ * Showing
+ */
+
+.smallest#{$delimiter}show,
+.smaller#{$delimiter}show,
+.small#{$delimiter}show,
+.medium#{$delimiter}show,
+.large#{$delimiter}show,
+.larger#{$delimiter}show {
+    display: none
+}
+
+/**
+* Responses 
+*/
+
+
+/* Phones and smartphones in portrait */
+@media all and (min-width: 0) and (max-width: $mobile-small-portrait-width){ /* Smallest */
+
+    /**
+    * Adaptive Framework
+    */
+
+    /* Hiding */
+    .smallest#{$delimiter}hide { display: none; }
+
+    /* Showing */
+    .smallest#{$delimiter}show { display: block; }
+    
+    /* Grid */
+    .grid {
+        @each $size in $gutter-sizes {
+            &.smallest#{$delimiter}to#{$delimiter}#{floor($size)} {
+                margin: #{"-"}#{$size/2}#{"px"};
+            }
+            &.smallest#{$delimiter}to#{$delimiter}#{floor($size)} > .col {
+                padding: #{$size/2}#{"px"};
+            }
+            &.smallest#{$delimiter}to#{$delimiter}#{floor($size)}.outergut {
+                margin: 0; padding: #{$size/2}#{"px"};
+            }
+        }
+        .col {
+            @each $size in $column-sizes {
+                &.smallest#{$delimiter}to#{$delimiter}#{floor($size)} {
+                    width: #{$size}#{"%"};
+                } 
+            }
+        }
+    }
+  
+}
+ 
+/* Small smartphones in landscape (iPhone in landscape) */
+@media all and (min-width: #{$mobile-small-portrait-width + 1}) and (max-width: $mobile-small-landscape-width){ /* Smaller */
+
+    /**
+    * Adaptive Framework
+    */
+
+    /* Hiding */
+    .smaller#{$delimiter}hide { display: none; }
+
+    /* Showing */
+    .smaller#{$delimiter}show { display: block; }
+
+    /* Grid */
+    .grid {
+        @each $size in $gutter-sizes {
+            &.smaller#{$delimiter}to#{$delimiter}#{floor($size)} {
+                margin: #{"-"}#{$size/2}#{"px"};
+            }
+            &.smaller#{$delimiter}to#{$delimiter}#{floor($size)} > .col {
+                padding: #{$size/2}#{"px"};
+            }
+            &.smaller#{$delimiter}to#{$delimiter}#{floor($size)}.outergut {
+                margin: 0; padding: #{$size/2}#{"px"};
+            }
+        }
+        .col {
+            @each $size in $column-sizes {
+                &.smaller#{$delimiter}to#{$delimiter}#{floor($size)} {
+                    width: #{$size}#{"%"};
+                } 
+            }
+        }
+    }
+    
+}
+ 
+/* Small tablets and large phones in landscape (Nexus 7) */
+@media all and (min-width: #{$mobile-small-landscape-width + 1}) and (max-width: $mobile-large-width) { /* Small */
+
+    /**
+    * Adaptive Framework
+    */
+
+    /* Hiding */
+    .small#{$delimiter}hide { display: none; }
+
+    /* Showing */
+    .small#{$delimiter}show { display: block; }
+
+    /* Grid */
+    .grid {
+        @each $size in $gutter-sizes {
+            &.small#{$delimiter}to#{$delimiter}#{floor($size)} {
+                margin: #{"-"}#{$size/2}#{"px"};
+            }
+            &.small#{$delimiter}to#{$delimiter}#{floor($size)} > .col {
+                padding: #{$size/2}#{"px"};
+            }
+            &.small#{$delimiter}to#{$delimiter}#{floor($size)}.outergut {
+                margin: 0; padding: #{$size/2}#{"px"};
+            }
+        }
+        .col {
+            @each $size in $column-sizes {
+                &.small#{$delimiter}to#{$delimiter}#{floor($size)} {
+                    width: #{$size}#{"%"};
+                } 
+            }
+        }
+    }
+    
+}
+ 
+/* Large tablets and Facebook iframe (iPad in portrait, Facebook on desktop) */
+@media all and (min-width: #{$mobile-large-width + 1}) and (max-width: $tablet-portrait-width){ /* Medium */
+
+    /**
+    * Adaptive Framework
+    */
+
+    /* Hiding */
+    .medium#{$delimiter}hide { display: none; }
+
+    /* Showing */
+    .medium#{$delimiter}show { display: block; }
+    
+    /* Grid */
+    .grid {
+        @each $size in $gutter-sizes {
+            &.medium#{$delimiter}to#{$delimiter}#{floor($size)} {
+                margin: #{"-"}#{$size/2}#{"px"};
+            }
+            &.medium#{$delimiter}to#{$delimiter}#{floor($size)} > .col {
+                padding: #{$size/2}#{"px"};
+            }
+            &.medium#{$delimiter}to#{$delimiter}#{floor($size)}.outergut {
+                margin: 0; padding: #{$size/2}#{"px"};
+            }
+        }
+        .col {
+            @each $size in $column-sizes {
+                &.medium#{$delimiter}to#{$delimiter}#{floor($size)} {
+                    width: #{$size}#{"%"};
+                } 
+            }
+        }
+    }
+ 
+}
+
+/* Large tablets (iPad in landscape) */
+@media all and (min-width: #{$tablet-portrait-width + 1}) and (max-width: $tablet-landscape-width){ /* Large */
+
+    /**
+    * Adaptive Framework
+    */
+
+    /* Hiding */
+    .large#{$delimiter}hide { display: none; }
+
+    /* Showing */
+    .large#{$delimiter}show { display: block; }
+
+    /* Grid */
+    .grid {
+        @each $size in $gutter-sizes {
+            &.large#{$delimiter}to#{$delimiter}#{floor($size)} {
+                margin: #{"-"}#{$size/2}#{"px"};
+            }
+            &.large#{$delimiter}to#{$delimiter}#{floor($size)} > .col {
+                padding: #{$size/2}#{"px"};
+            }
+            &.large#{$delimiter}to#{$delimiter}#{floor($size)}.outergut {
+                margin: 0; padding: #{$size/2}#{"px"};
+            }
+        }
+        .col {
+            @each $size in $column-sizes {
+                &.large#{$delimiter}to#{$delimiter}#{floor($size)} {
+                    width: #{$size}#{"%"};
+                } 
+            }
+        }
+    }
+    
+}
+ 
+/* Laptops and desktops */
+@media all and (min-width: $desktop-width){ /* Larger */
+
+    /**
+    * Adaptive Framework
+    */
+
+    /* Hiding */
+    .larger#{$delimiter}hide { display: none; }
+
+    /* Showing */
+    .larger#{$delimiter}show { display: block; }
+
+    /* Grid */
+    .grid {
+        @each $size in $gutter-sizes {
+            &.larger#{$delimiter}to#{$delimiter}#{floor($size)} {
+                margin: #{"-"}#{$size/2}#{"px"};
+            }
+            &.larger#{$delimiter}to#{$delimiter}#{floor($size)} > .col {
+                padding: #{$size/2}#{"px"};
+            }
+            &.larger#{$delimiter}to#{$delimiter}#{floor($size)}.outergut {
+                margin: 0; padding: #{$size/2}#{"px"};
+            }
+        }
+        .col {
+            @each $size in $column-sizes {
+                &.larger#{$delimiter}to#{$delimiter}#{floor($size)} {
+                    width: #{$size}#{"%"};
+                } 
+            }
+        }
+    }
+    
+}

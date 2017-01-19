@@ -7,6 +7,7 @@ Based off doabit's [proof-of-concept](https://github.com/doabit/vue-ssr-starter-
 - Route parameter support
 - Http failure handling
 - Unit tests incorporating the store and router
+- SASS opposed to Stylus
 
 ## Build Setup
 

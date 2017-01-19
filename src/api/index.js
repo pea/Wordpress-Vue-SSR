@@ -1,7 +1,7 @@
 import request from 'axios'
 
 export default {
-  baseUrl: 'http://wpvue.peabay.xyz/wp-json/wp/v2/',
+  baseUrl: 'https://techmog.com/wp-json/wp/v2/',
   /**
    * Return a single page
    * @param  string slug Page slug (e.g. 'sample-page')
@@ -53,7 +53,8 @@ export default {
             guid: data.guid.rendered,
             link: data.link,
             slug: data.slug,
-            title: data.title.rendered
+            title: data.title.rendered,
+            featuredImage: data.better_featured_image.source_url
           }
           resolve(filtered)
         } else {
@@ -80,7 +81,8 @@ export default {
               id: item.id,
               title: item.title.rendered,
               content: item.content.rendered,
-              slug: item.slug
+              slug: item.slug,
+              featuredImage: item.better_featured_image.source_url
             }))
           }
           resolve(filtered)

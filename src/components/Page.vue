@@ -16,11 +16,15 @@ import router from '../router/index'
 
 const fetchInitialData = (store, params) => {
   return new Promise((resolve, reject) => {
-    return store.dispatch(`getPage`, params.slug)
+    if (params.slug !== store.state.page.slug) {
+      return store.dispatch(`getPage`, params.slug)
       .then(
         response => { return resolve(response) },
         response => { return reject(response) }
       )
+    } else {
+      resolve(store.state.page)
+    }
   })
   .catch(() => { router.push({name: 'pagenotfound'}) })
 }
@@ -28,7 +32,7 @@ export default {
   prefetch: fetchInitialData,
   data () {
     return {
-      dataReady: typeof window === 'undefined'
+      dataReady: typeof window !== 'undefined'
     }
   },
   computed: {
@@ -36,7 +40,8 @@ export default {
       page: 'getPage'
     })
   },
-  created () {
+  activated () {
+    this.dataReady = false
     return fetchInitialData(this.$store, this.$route.params)
     .then(response => {
       this.dataReady = true
@@ -44,18 +49,6 @@ export default {
     .catch(err => {
       if (err) this.$router.push({name: 'pagenotfound'})
     })
-  },
-  activated () {
-    if (this.$route.params.slug !== this.$store.state.page.slug) {
-      this.dataReady = typeof window === 'undefined'
-      return fetchInitialData(this.$store, this.$route.params)
-      .then(response => {
-        this.dataReady = true
-      })
-      .catch(err => {
-        if (err) this.$router.push({name: 'pagenotfound'})
-      })
-    }
   }
 }
 </script>

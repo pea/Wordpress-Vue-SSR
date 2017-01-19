@@ -11,10 +11,7 @@ export default {
     title: null,
     content: null
   },
-  posts: [{
-    title: null,
-    content: null
-  }],
+  posts: null,
   post: {
     title: null,
     content: null

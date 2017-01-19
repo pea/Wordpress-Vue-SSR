@@ -1,12 +1,18 @@
 <template>
-  <div v-if="dataReady">
-      <h1>{{ page.title }}</h1>
-      <div v-html="page.content">{{ page.content }}</div>
+  <div>
+    <div v-if="!dataReady">
+      Loading
+    </div>
+    <div v-if="dataReady">
+        <h1>{{ page.title }}</h1>
+        <div v-html="page.content">{{ page.content }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import router from '../router/index'
 
 const fetchInitialData = (store, params) => {
   return new Promise((resolve, reject) => {
@@ -16,6 +22,7 @@ const fetchInitialData = (store, params) => {
         response => { return reject(response) }
       )
   })
+  .catch(() => { router.push({name: 'pagenotfound'}) })
 }
 export default {
   prefetch: fetchInitialData,
@@ -39,7 +46,7 @@ export default {
     })
   },
   activated () {
-    if (this.$route.params.slug !== this.$store.state.post.slug) {
+    if (this.$route.params.slug !== this.$store.state.page.slug) {
       this.dataReady = typeof window === 'undefined'
       return fetchInitialData(this.$store, this.$route.params)
       .then(response => {
